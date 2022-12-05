@@ -8,21 +8,30 @@ class Age {
         .join("-")
     );
     const today = new Date();
+    let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let currentDay = today.getDate();
     let currentMonth = today.getMonth() + 1;
     let currentYear = today.getFullYear();
-    let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let birthDay = dateofbirth.getDate();
+    let birthMonth = dateofbirth.getMonth() + 1;
+    let birthYear = dateofbirth.getFullYear();
 
-    if (dateofbirth.getDate() > currentDay) {
-      currentDay += month[currentMonth - 1];
-      currentMonth -= 1;
+    if (birthDay > currentDay) {
+      currentDay = currentDay + month[currentMonth - 1];
+      currentMonth = currentMonth - 1;
     }
-    if (dateofbirth.getMonth() > currentMonth) {
-      currentMonth += 12;
-      currentYear -= 1;
+    if (birthMonth > currentMonth) {
+      currentMonth = currentMonth + 12;
+      currentYear = currentYear - 1;
     }
 
-    cb(null);
+    cb(null, {
+      umur: {
+        year: currentYear - birthYear,
+        month: currentMonth - birthMonth,
+        day: currentDay - birthDay,
+      },
+    });
   }
 }
 
