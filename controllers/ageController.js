@@ -1,6 +1,15 @@
+const Age = require("../models/age");
+
 class AgeController {
-  static async calculateAge(req, res) {
-    res.status(200).json("31/11/2");
+  static calculateAge(req, res) {
+    const { dateofbirth } = req.params;
+    Age.calculateAge(dateofbirth, (err, age) => {
+      if (err) {
+        res.status(500).json("Internal Server Error");
+      } else {
+        res.status(200).json(age);
+      }
+    });
   }
 }
 

@@ -7,7 +7,7 @@ class Booking {
   }
 }
 
-class BookingModel {
+class ManageDb {
   static findBooking(cb) {
     fs.readFile("./data/booking.json", "utf-8", (err, data) => {
       if (err) {
@@ -31,7 +31,9 @@ class BookingModel {
       }
     );
   }
+}
 
+class BookingModel {
   static endBook(date, interval, duration) {
     interval = +interval + +duration;
     date.setHours(date.getHours() + interval);
@@ -39,7 +41,7 @@ class BookingModel {
     return date;
   }
   static booking(input, cb) {
-    BookingModel.findBooking((err, bookings) => {
+    ManageDb.findBooking((err, bookings) => {
       if (err) {
         cb(false);
       } else {
@@ -82,7 +84,6 @@ class BookingModel {
                 : false;
           }
 
-          // console.log(canBook);
           if (!canBook) {
             return cb("false");
           }
@@ -90,7 +91,7 @@ class BookingModel {
         let newBooking = new Booking(newId, bookingdate, input.durasi);
         bookings.push(newBooking);
 
-        BookingModel.saveToJson(bookings, (err) => {
+        ManageDb.saveToJson(bookings, (err) => {
           if (err) {
             cb(err);
           } else {
