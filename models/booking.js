@@ -63,7 +63,7 @@ class BookingModel {
             return a > b ? a : b;
           });
           const firstBooking = listBook.reduce(function (a, b) {
-            return a < b ? a : b;
+            return a < b ? b : a;
           });
           if (bookingdate > new Date(latestBooking.bookingdate)) {
             const endOfLatestBooking = this.endBook(
@@ -78,6 +78,7 @@ class BookingModel {
               2,
               input.durasi
             );
+
             canBook =
               endOfFirstBooking <= new Date(firstBooking.bookingdate)
                 ? true

@@ -12,7 +12,7 @@ class SalaryController {
 
     Salary.hitunggaji(input, (err, pajak) => {
       if (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal server error");
       } else {
         res.status(200).json(pajak);
       }
